@@ -1,3 +1,4 @@
+console.log("From color-correction.js");
 //I need to be able to adjust the levels and HSB of a whole palette at the same time, 
 // but also of individual colors.
 
@@ -23,24 +24,21 @@
 //midPoint at zero means that the middle is the middle between dark and light.
 //midPoint at another number means the middle is shifted up or down by midPoint.
 //What does it mean to shift the middle of the range??
+
 // Input : r, g, b
-r = map(input, 0, 255, 0 + dark, 255 + light);
-mid = (dark + light) / 2 + mid;
 
 
 // if mid = 50...
-if (r < )
+// if (r < )
 
 //  V              V                V
 //  0-------------128-------------255
 
-    mid = 50;
+// mid = 50;
 
 //  V                    V          V
 //  0--------------------178------255
 
-// midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
-// what is between 129 and 255 must be mapped between 179 and 255.
 
 
 
@@ -48,7 +46,7 @@ if (r < )
 // ( x1 + x2 ) / 2
 // (-50 + 150) / 2 = 50
 
-r = constrain(colorValues.r, 0, 255);
+// r = constrain(colorValues.r, 0, 255);
 
 //If the color is below midPoint, map it from dark to midPoint.
 //Else, if the color is greater or equal to midPoint, map it from midPoint to light.
@@ -59,8 +57,26 @@ r = constrain(colorValues.r, 0, 255);
 
 function adjustLevels(dark, mid, light, values) {
     var r, g, b;
+    r = map(values.r, 0, 255, 0 + dark, 255 + light);
+    var originalMid = (dark + light) / 2;
+    // mid = (dark + light) / 2 + mid;
 
+    // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
+    // what is between 129 and 255 must be mapped between 179 and 255.
 
+    // Adjusted for dark and light : 
+    // what is between dark and originalMid must mapped between dark and (originalMid + mid),
+    // what is between originalMid and light must be mapped between (originalMid + mid) and light;
+    if (r >= dark && r <= originalMid) {
+        r = map(r, dark, originalMid, dark, originalMid + mid);
+    } else if (r > originalMid && r <= light) {
+        r = map(r, originalMid, light, originalMid + mid, light);
+    }
+
+    //Then we constrain the value to proper rgb values.
+    r = constrain(r, 0, 255);
+    //We round the value.
+    r = round(r);
 
 
     //For every argument starting at arguments[3], do this...
@@ -75,9 +91,21 @@ function adjustLevels(dark, mid, light, values) {
 
 //Hue, Saturation, Brightness
 
-function adjustHSB(hue, sat, brightness, values) {
+function adjustHsb(hue, sat, brightness, values) {
 
 }
+
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+
 
 //-----------------------------HSL to RGB, RGB to HSL----------------------//
 

@@ -1,3 +1,51 @@
+var drawCount = 0;
+var looping = false;
+var showPanel = true;
+var exporting = false;
+
+function keyPressed() {
+    if (keyCode === 32) {
+        if (looping) {
+            noLoop();
+            looping = false;
+            // song.pause();
+        } else {
+            loop();
+            looping = true;
+            // song.play();
+        }
+    }
+    if (key == 'y' || key == 'Y') {
+        showYellow = (showYellow) ? false : true;
+    }
+    if (key == 'r' || key == 'R') {
+        // userControlledSpiral.privateValues.paletteIndex += 2;
+        // userControlledParticle.privateValues.paletteIndex += 2;
+        autumnSpiral10.privateValues.paletteIndex += 2;
+    }
+    if (key == 'e' || key == 'E') {
+        // userControlledSpiral.privateValues.paletteIndex += 2;
+        // userControlledParticle.privateValues.paletteIndex += 2;
+        // userControlledSpiral.privateValues.paletteIndex += 2;
+    }
+    if (key == 't' || key == 'T') {
+        change_erase_color();
+    }
+    if (key == 'n' || key == 'N') {
+        nb = (nb) ? false : true;
+    }
+
+    if (key == 'g' || key == 'G') {
+        if (showPanel) {
+            showPanel = false;
+            infoDiv.style("display", "none");
+        } else {
+            showPanel = true;
+            infoDiv.style("display", "block");
+        }
+    }
+}
+
 showYellowDots = function() {
     fill(255, 255, 0);
     if (globalValues.yellowGraph) {
@@ -68,7 +116,7 @@ var divier, divider2, divider3;
 
 
 var sheetSlider;
-var sumSheet = sumXSheet(xSheet);
+// var sumSheet = sumXSheet(xSheet);
 
 var speed;
 var accMult;
@@ -151,14 +199,14 @@ function createInfoDiv() {
     selDiv2.style('margin-top', '-0.4em');
 
     //-------- Curve selector------------------//
-    sel = createSelect();
-    sel.parent(selDiv2);
-    sel.style('float', 'left');
+    // sel = createSelect();
+    // sel.parent(selDiv2);
+    // sel.style('float', 'left');
 
-    for (var c = 0; c < curves.length; c++) {
-        sel.option(curves[c].name);
-    }
-    sel.changed(mySelectEvent);
+    // for (var c = 0; c < curves.length; c++) {
+    //     sel.option(curves[c].name);
+    // }
+    // sel.changed(mySelectEvent);
     //-----------------------------------------//
 
     // var sketchDivider = new Divider("Sketch");
@@ -191,8 +239,8 @@ function createInfoDiv() {
         }
     }
 
-    sel.value(curves[2].name);
-    shape = curves[2];
+    // sel.value(curves[2].name);
+    // shape = curves[2];
 
     function selMagEvent() {
         var item = selMag.value();
@@ -217,7 +265,7 @@ function createInfoDiv() {
     // sliders.spiralSpeed = new Slider("Spiral speed", 1, 100000, 1, 1);
     info1 = createP('this is some text');
     info1.parent(infoDiv);
-    sliders.sheetSlider = new Slider("DrawCount", 0, sumSheet, drawCount);
+    // sliders.sheetSlider = new Slider("DrawCount", 0, sumSheet, drawCount);
 
     // sliders.sheetSlider.set = function(val) {
     //     this.slider.value(val);
@@ -226,13 +274,13 @@ function createInfoDiv() {
 
     // };
 
-    sliders.sheetSlider.slider.input(function() {
-        // sliders.sheetSlider = sliders.sheetSlider.slider.value();
-        // sliders.sheetSlider.connection = this.value;
-        // console.log(this.value);
-        // sliders.sheetSlider.paragraph.html(sliders.sheetSlider.name + " : " + sliders.sheetSlider.value);
-        repositionSong = true;
+    // sliders.sheetSlider.slider.input(function() {
+    //     // sliders.sheetSlider = sliders.sheetSlider.slider.value();
+    //     // sliders.sheetSlider.connection = this.value;
+    //     // console.log(this.value);
+    //     // sliders.sheetSlider.paragraph.html(sliders.sheetSlider.name + " : " + sliders.sheetSlider.value);
+    //     repositionSong = true;
 
-    });
+    // });
 
 }
