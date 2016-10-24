@@ -5,7 +5,8 @@ var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    createInfoDiv();
+    createInterface();
+    // createInfoDiv();
     // setupInfoDiv();
     background(0);
     fill(255);
