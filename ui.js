@@ -6,7 +6,6 @@
 //Then, when you create sliders, you can pass to your slider constructor a reference to which
 //panel you want to associate your slider.
 
-
 var interface;
 var timeline;
 
@@ -19,38 +18,110 @@ var timeline;
 
 
 //slidersArray doesn't seem to be doing anything. Needs more investigating.
-var slidersArray = [];
+// var slidersArray = [];
 var sliders = {};
 
+Slider = function(name, min, max, start, step, parent) {
+    this.name = name;
+    this.min = min;
+    this.max = max;
+    this.start = start;
+    this.value = start;
+    this.step = step;
 
-function createPanel() {
+    this.paragraph = createP(this.name + " : " + this.start);
+    this.paragraph.parent(parent);
 
+    this.slider = createSlider(min, max, start, step);
+    this.slider.parent(parent);
+    this.slider.style('width', '100%');
+    this.slider.style('margin-top', '-15px');
+    this.slider.style('margin-bottom', '-15px');
+
+    var that = this;
+    this.slider.input(function() {
+        that.value = that.slider.value();
+        that.connection = that.value;
+        that.paragraph.html(that.name + " : " + that.value);
+    });
+    // slidersArray.push(this);
 }
 
-function createPanels() {
+Slider.prototype.set = function(val) {
+    this.slider.value(val);
+    this.value = val;
+    this.paragraph.html(this.name + " : " + this.value);
+};
 
+var folders = {};
+
+Folder = function(name, open) {
+    this.name = name;
+    this.open = open;
+    this.container = createDiv('');
+    this.container.parent(interface);
+    this.container.style("border", "solid 2px #5B5B5B");
+    this.container.style("margin-bottom", "0.75em");
+
+    this.titleDiv = createDiv(name);
+    this.titleDiv.parent(this.container);
+    this.titleDiv.style("background", "#5B5B5B");
+    this.titleDiv.style("color", "#fff");
+    this.titleDiv.style("padding", "0.5em");
+    this.div = createDiv('');
+    this.div.parent(this.container);
+    this.div.style("padding", "0em 0.75em 1.25em 0.65em");
+
+    var that = this;
+    this.titleDiv.mouseClicked(function() {
+        that.toggleHide();
+    });
+    if (this.open === true) {
+        this.div.style("display", "block");
+    } else {
+        this.div.style("display", "none");
+    }
+}
+
+Folder.prototype.toggleHide = function() {
+    if (this.open === true) {
+        this.open = false
+        this.div.style("display", "none");
+    } else {
+        this.open = true;
+        this.div.style("display", "block");
+    }
 }
 
 function createTimeline() {
-
+    timeline = createDiv('');
+    timeline.style('position', 'absolute');
+    timeline.style('box-sizing', 'border-box');
+    timeline.style('width', '100%');
+    timeline.style('height', '4.5em');
+    timeline.style('bottom', '0');
+    timeline.style('padding', '10px 40px');
+    timeline.style('opacity', '0.55');
+    timeline.style('background', '#222222');
+    timeline.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
+    timeline.style('line-height', '0.05em');
+    timeline.style('color', '#cecece');
+    sliders.levels = new Slider("DrawCount", -200, 100, 0, 1, timeline);
+    sliders.levels.slider.style("margin", "0 auto");
 }
 
 function createInterface() {
-    createPanels();
     createTimeline();
-    // interface = createDiv('');
-    // interface.style('position', 'absolute');
-    // interface.style('bottom', '0');
-    // interface.style('padding', '20px');
-    // interface.style('opacity', '0.55');
-    // interface.style('background', '#222222');
-    // interface.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
-    // interface.style('line-height', '0.4em');
-    // interface.style('color', '#cecece');
-    // interface.html('yeah');
-}
-
-
-function setTimelineWidth(input) {
-
+    interface = createDiv('');
+    interface.style('position', 'absolute');
+    interface.style('width', '300px');
+    interface.style('bottom', '4.5em');
+    interface.style('padding', '10px 10px 0px 10px');
+    interface.style('opacity', '0.55');
+    interface.style('background', '#222222');
+    interface.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
+    // interface.style('line-height', '0.75em');
+    interface.style("max-height", windowHeight - 90);
+    interface.style("overflow", "auto");
+    interface.style('color', '#cecece');
 }

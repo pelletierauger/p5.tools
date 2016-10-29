@@ -1,6 +1,6 @@
 var drawCount = 0;
 var looping = false;
-var showPanel = true;
+var showPanels = true;
 var exporting = false;
 
 function keyPressed() {
@@ -36,12 +36,14 @@ function keyPressed() {
     }
 
     if (key == 'g' || key == 'G') {
-        if (showPanel) {
-            showPanel = false;
-            infoDiv.style("display", "none");
+        if (showPanels) {
+            showPanels = false;
+            interface.style("display", "none");
+            timeline.style("display", "none");
         } else {
-            showPanel = true;
-            infoDiv.style("display", "block");
+            showPanels = true;
+            interface.style("display", "block");
+            timeline.style("display", "block");
         }
     }
 }
