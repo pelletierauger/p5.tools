@@ -106,8 +106,8 @@ function createTimeline() {
     timeline.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
     timeline.style('line-height', '0.05em');
     timeline.style('color', '#cecece');
-    sliders.levels = new Slider("DrawCount", -200, 100, 0, 1, timeline);
-    sliders.levels.slider.style("margin", "0 auto");
+    sliders.timeline = new Slider("DrawCount", -200, 100, 0, 1, timeline);
+    sliders.timeline.slider.style("margin", "0 auto");
 }
 
 function createInterface() {
