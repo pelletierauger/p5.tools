@@ -13,6 +13,7 @@ function setup() {
     folders.test2 = new Folder("Un autre test", true);
     folders.test3 = new Folder("Un autre test", true);
     sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.test.div);
+    menus.tester = new Menu("Testing", folders.test.div);
     sliders.b = new Slider("Acceleration", 0, 40, 2.5, 0.1, folders.test.div);
     sliders.x = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.test2.div);
     sliders.y = new Slider("Acceleration", 0, 40, 2.5, 0.1, folders.test2.div);
@@ -21,7 +22,19 @@ function setup() {
     sliders.xxx = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.test2.div);
     sliders.yyy = new Slider("Acceleration", 0, 40, 2.5, 0.1, folders.test2.div);
     sliders.xxxx = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.test3.div);
+    buttons.adjuster = new Button("Adjustments", folders.test3.div, function() {
+        console.log("This is working!");
+    });
     sliders.yyyy = new Slider("Acceleration", 0, 40, 2.5, 0.1, folders.test3.div);
+    buttons.adjuster2 = new Button("Adjustments", folders.test3.div, function() {
+        console.log("This is working!");
+    });
+
+
+
+    // buttons.adjuster.button.mousePressed(function() {
+    //     console.log("This is working!");
+    // });
     background(0);
     fill(255);
     noStroke();

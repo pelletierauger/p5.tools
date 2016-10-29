@@ -81,7 +81,7 @@ Folder = function(name, open) {
     } else {
         this.div.style("display", "none");
     }
-}
+};
 
 Folder.prototype.toggleHide = function() {
     if (this.open === true) {
@@ -91,7 +91,38 @@ Folder.prototype.toggleHide = function() {
         this.open = true;
         this.div.style("display", "block");
     }
-}
+};
+
+var buttons = {};
+
+Button = function(name, parent, func) {
+    this.button = createButton(name);
+    this.button.parent(parent);
+    this.button.style("margin", "1em 0 0em 0");
+    if (func) {
+        this.button.mousePressed(func);
+    }
+};
+
+var menus = {};
+
+Menu = function(name, parent) {
+    this.div = createDiv('');
+    this.div.parent(parent);
+    this.nameDiv = createDiv(name + ' : ');
+    this.nameDiv.parent(this.div);
+    this.nameDiv.style('float', 'left');
+    this.nameDiv.style('padding-right', '0.5em');
+    this.containerDiv = createDiv('');
+    this.containerDiv.parent(this.div);
+    this.containerDiv.style('float', 'left');
+    // this.containerDiv.style('margin-top', '-0.4em');
+
+    this.menu = createSelect();
+    this.menu.parent(this.containerDiv);
+    this.menu.style('float', 'left');
+    this.div.style("padding", "10px 0 15px 0");
+};
 
 function createTimeline() {
     timeline = createDiv('');
