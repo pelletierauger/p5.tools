@@ -13,7 +13,8 @@ function setup() {
     // buttons.adjuster.button.mousePressed(function() {
     //     console.log("This is working!");
     // });
-    background(125);
+    background(255, 125, 0);
+    background(0);
     fill(255);
     noStroke();
     noLoop();
@@ -53,7 +54,7 @@ function draw() {
 
         x = cos(i) * r;
         y = sin(i) * r;
-        ellipse(x, y, 100);
+        ellipse(x, y, 300);
         colIndex++;
         if (colIndex > 4) {
             colIndex = 0;

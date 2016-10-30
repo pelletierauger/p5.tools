@@ -38,6 +38,7 @@ Slider = function(name, min, max, start, step, parent) {
     this.slider.parent(parent);
     this.slider.style('width', '100%');
     this.slider.style('margin-top', '-15px');
+    this.slider.style('opacity', '0.55');
     // this.slider.style('margin-bottom', '-25px');
 
     var that = this;
@@ -62,13 +63,13 @@ Folder = function(name, open) {
     this.open = open;
     this.container = createDiv('');
     this.container.parent(interface);
-    this.container.style("border", "solid 2px #5B5B5B");
+    this.container.style("border", "solid 2px rgba(195, 195, 195, 0.25)");
     this.container.style("margin-bottom", "0.75em");
 
     this.titleDiv = createDiv(name);
     this.titleDiv.parent(this.container);
-    this.titleDiv.style("background", "#5B5B5B");
-    this.titleDiv.style("color", "#fff");
+    this.titleDiv.style('background-color', 'rgba(195, 195, 195, 0.25)');
+    this.titleDiv.style("color", 'rgba(255, 255, 255, 0.55');
     this.titleDiv.style("padding", "0.25em 0.5em");
     this.div = createDiv('');
     this.div.parent(this.container);
@@ -101,6 +102,7 @@ Button = function(name, parent, func) {
     this.button = createButton(name);
     this.button.parent(parent);
     this.button.style("margin", "1em 0 0em 0");
+    this.button.style('opacity', '0.55');
     if (func) {
         this.button.mousePressed(func);
     }
@@ -123,6 +125,7 @@ Menu = function(name, parent) {
     this.menu = createSelect();
     this.menu.parent(this.containerDiv);
     this.menu.style('float', 'left');
+    this.menu.style('opacity', '0.55');
     this.div.style("padding", "10px 0 15px 0");
 };
 
@@ -137,11 +140,11 @@ function createTimeline(min, max, start) {
     timeline.style('padding', '0px 40px');
     timeline.style('margin', '0px');
     // timeline.style('margin', '0px')
-    timeline.style('opacity', '0.55');
+    timeline.style('opacity', '1');
     timeline.style('background', '#222222');
     timeline.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
     // timeline.style('line-height', '0.05em');
-    timeline.style('color', '#cecece');
+    timeline.style('color', 'rgba(255, 255, 255, 0.5');
     sliders.timeline = new Slider("DrawCount", min, max, start, 1, timeline);
     sliders.timeline.paragraph.style("margin", "10px 0px 6px 0px");
 
@@ -158,12 +161,12 @@ function createInterface(min, max, start) {
     interface.style('width', '300px');
     interface.style('bottom', '2.5em');
     interface.style('padding', '10px 10px 0px 10px');
-    interface.style('opacity', '0.55');
-    interface.style('background', '#222222');
+    interface.style('opacity', '1');
+    interface.style('background-color', 'rgba(65, 65, 65, 0.5)');
     interface.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
     // interface.style('line-height', '0.75em');
-    var calculateHeight = windowHeight - 90;
+    var calculateHeight = windowHeight - 50;
     interface.style("max-height", calculateHeight + "px");
     interface.style("overflow", "auto");
-    interface.style('color', '#cecece');
+    interface.style('color', 'rgba(255, 255, 255, 0.5');
 }
