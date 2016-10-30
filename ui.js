@@ -31,12 +31,14 @@ Slider = function(name, min, max, start, step, parent) {
 
     this.paragraph = createP(this.name + " : " + this.start);
     this.paragraph.parent(parent);
+    this.paragraph.style("line-height", "0.5em");
+    this.paragraph.style("margin-bottom", "0.5em");
 
     this.slider = createSlider(min, max, start, step);
     this.slider.parent(parent);
     this.slider.style('width', '100%');
     this.slider.style('margin-top', '-15px');
-    this.slider.style('margin-bottom', '-15px');
+    // this.slider.style('margin-bottom', '-25px');
 
     var that = this;
     this.slider.input(function() {
@@ -67,7 +69,7 @@ Folder = function(name, open) {
     this.titleDiv.parent(this.container);
     this.titleDiv.style("background", "#5B5B5B");
     this.titleDiv.style("color", "#fff");
-    this.titleDiv.style("padding", "0.5em");
+    this.titleDiv.style("padding", "0.25em 0.5em");
     this.div = createDiv('');
     this.div.parent(this.container);
     this.div.style("padding", "0em 0.75em 1.25em 0.65em");
@@ -152,7 +154,8 @@ function createInterface() {
     interface.style('background', '#222222');
     interface.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
     // interface.style('line-height', '0.75em');
-    interface.style("max-height", windowHeight - 90);
+    var calculateHeight = windowHeight - 90;
+    interface.style("max-height", calculateHeight + "px");
     interface.style("overflow", "auto");
     interface.style('color', '#cecece');
 }

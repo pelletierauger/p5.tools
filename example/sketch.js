@@ -7,8 +7,19 @@ var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
 function setup() {
     createCanvas(windowWidth, windowHeight);
     createInterface();
+    configureInterface();
     // createInfoDiv();
     // setupInfoDiv();
+    // buttons.adjuster.button.mousePressed(function() {
+    //     console.log("This is working!");
+    // });
+    background(0);
+    fill(255);
+    noStroke();
+    noLoop();
+}
+
+function configureInterface() {
     folders.test = new Folder("Joli test", true);
     folders.test2 = new Folder("Un autre test", true);
     folders.test3 = new Folder("Un autre test", true);
@@ -29,16 +40,6 @@ function setup() {
     buttons.adjuster2 = new Button("Adjustments", folders.test3.div, function() {
         console.log("This is working!");
     });
-
-
-
-    // buttons.adjuster.button.mousePressed(function() {
-    //     console.log("This is working!");
-    // });
-    background(0);
-    fill(255);
-    noStroke();
-    noLoop();
 }
 
 function draw() {
