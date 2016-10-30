@@ -126,29 +126,37 @@ Menu = function(name, parent) {
     this.div.style("padding", "10px 0 15px 0");
 };
 
-function createTimeline() {
+function createTimeline(min, max, start) {
     timeline = createDiv('');
     timeline.style('position', 'absolute');
     timeline.style('box-sizing', 'border-box');
+    timeline.style('overflow', 'hidden');
     timeline.style('width', '100%');
-    timeline.style('height', '4.5em');
+    timeline.style('height', '2.5em');
     timeline.style('bottom', '0');
-    timeline.style('padding', '10px 40px');
+    timeline.style('padding', '0px 40px');
+    timeline.style('margin', '0px');
+    // timeline.style('margin', '0px')
     timeline.style('opacity', '0.55');
     timeline.style('background', '#222222');
     timeline.style('font-family', 'Inconsolata', 'Helvetica', 'Arial');
-    timeline.style('line-height', '0.05em');
+    // timeline.style('line-height', '0.05em');
     timeline.style('color', '#cecece');
-    sliders.timeline = new Slider("DrawCount", -200, 100, 0, 1, timeline);
-    sliders.timeline.slider.style("margin", "0 auto");
+    sliders.timeline = new Slider("DrawCount", min, max, start, 1, timeline);
+    sliders.timeline.paragraph.style("margin", "10px 0px 6px 0px");
+
+    // sliders.timeline.paragraph.style("padding", "-10px");
+
+    // this.paragraph.style("line-height", "0.5em");
+    // this.paragraph.style("margin-bottom", "0.5em");
 }
 
-function createInterface() {
-    createTimeline();
+function createInterface(min, max, start) {
+    createTimeline(min, max, start);
     interface = createDiv('');
     interface.style('position', 'absolute');
     interface.style('width', '300px');
-    interface.style('bottom', '4.5em');
+    interface.style('bottom', '2.5em');
     interface.style('padding', '10px 10px 0px 10px');
     interface.style('opacity', '0.55');
     interface.style('background', '#222222');

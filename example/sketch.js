@@ -5,15 +5,15 @@ var r = 250;
 var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    createInterface();
+    createCanvas(windowWidth, windowWidth * 9 / 16);
+    createInterface(0, 1000, 0);
     configureInterface();
     // createInfoDiv();
     // setupInfoDiv();
     // buttons.adjuster.button.mousePressed(function() {
     //     console.log("This is working!");
     // });
-    background(0);
+    background(125);
     fill(255);
     noStroke();
     noLoop();
@@ -44,7 +44,7 @@ function configureInterface() {
 
 function draw() {
     translate(width / 2, height / 2);
-    background(0);
+    // background(0);
     var increment = TWO_PI / total;
     var colIndex = 0;
     for (var i = 0; i < TWO_PI; i += increment) {
