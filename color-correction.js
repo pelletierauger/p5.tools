@@ -57,28 +57,55 @@ console.log("From color-correction.js");
 
 function adjustLevels(dark, mid, light, values) {
     var r, g, b;
-    r = map(values.r, 0, 255, 0 + dark, 255 + light);
     var originalMid = (dark + light) / 2;
-    // mid = (dark + light) / 2 + mid;
+    var vals = [values.r, values.g, values.b];
+    for (var i = 0; i < vals.length; i++) {
+        vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
+        // mid = (dark + light) / 2 + mid;
 
-    // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
-    // what is between 129 and 255 must be mapped between 179 and 255.
+        // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
+        // what is between 129 and 255 must be mapped between 179 and 255.
 
-    // Adjusted for dark and light : 
-    // what is between dark and originalMid must mapped between dark and (originalMid + mid),
-    // what is between originalMid and light must be mapped between (originalMid + mid) and light;
-    if (r >= dark && r <= originalMid) {
-        r = map(r, dark, originalMid, dark, originalMid + mid);
-    } else if (r > originalMid && r <= light) {
-        r = map(r, originalMid, light, originalMid + mid, light);
+        // Adjusted for dark and light : 
+        // what is between dark and originalMid must mapped between dark and (originalMid + mid),
+        // what is between originalMid and light must be mapped between (originalMid + mid) and light;
+        if (vals[i] >= dark && vals[i] <= originalMid) {
+            vals[i] = map(vals[i], dark, originalMid, dark, originalMid + mid);
+        } else if (vals[i] > originalMid && vals[i] <= light) {
+            vals[i] = map(vals[i], originalMid, light, originalMid + mid, light);
+        }
+
+        //Then we constrain the value to proper rgb values.
+        vals[i] = constrain(vals[i], 0, 255);
+        //We round the value.
+        vals[i] = round(vals[i]);
     }
 
-    //Then we constrain the value to proper rgb values.
-    r = constrain(r, 0, 255);
-    //We round the value.
-    r = round(r);
+    // vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
+    // // mid = (dark + light) / 2 + mid;
 
+    // // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
+    // // what is between 129 and 255 must be mapped between 179 and 255.
 
+    // // Adjusted for dark and light : 
+    // // what is between dark and originalMid must mapped between dark and (originalMid + mid),
+    // // what is between originalMid and light must be mapped between (originalMid + mid) and light;
+    // if (r >= dark && r <= originalMid) {
+    //     r = map(r, dark, originalMid, dark, originalMid + mid);
+    // } else if (r > originalMid && r <= light) {
+    //     r = map(r, originalMid, light, originalMid + mid, light);
+    // }
+
+    // //Then we constrain the value to proper rgb values.
+    // r = constrain(r, 0, 255);
+    // //We round the value.
+    // r = round(r);
+    values = {
+        r: vals[0],
+        g: vals[1],
+        b: vals[2]
+    };
+    return values;
     //For every argument starting at arguments[3], do this...
     // for (var i = 3; i < arguments.length; i++) {
 

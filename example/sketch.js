@@ -17,13 +17,13 @@ function setup() {
     background(0);
     fill(255);
     noStroke();
-    noLoop();
+    // noLoop();
 }
 
 function configureInterface() {
-    folders.test = new Folder("Joli test", true);
-    folders.test2 = new Folder("Un autre test", true);
-    folders.test3 = new Folder("Un autre test", true);
+    folders.test = new Folder("Joli test", false);
+    folders.test2 = new Folder("Un autre test", false);
+    folders.test3 = new Folder("Un autre test", false);
     sliders.s = new Slider("Dot size", 0, 40, 2.5, 0.1, folders.test.div);
     menus.tester = new Menu("Testing", folders.test.div);
     sliders.b = new Slider("Acceleration", 0, 40, 2.5, 0.1, folders.test.div);
@@ -41,6 +41,10 @@ function configureInterface() {
     buttons.adjuster2 = new Button("Adjustments", folders.test3.div, function() {
         console.log("This is working!");
     });
+    folders.cols = new Folder("Levels adjustments", true);
+    sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
+    sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
+    sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
 }
 
 function draw() {
@@ -50,6 +54,7 @@ function draw() {
     var colIndex = 0;
     for (var i = 0; i < TWO_PI; i += increment) {
         var color = hexToRgb(palette[colIndex]);
+        color = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, color);
         fill(color.r, color.g, color.b);
 
         x = cos(i) * r;
