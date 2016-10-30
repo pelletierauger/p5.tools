@@ -41,10 +41,13 @@ function configureInterface() {
     buttons.adjuster2 = new Button("Adjustments", folders.test3.div, function() {
         console.log("This is working!");
     });
-    folders.cols = new Folder("Levels adjustments", true);
+    folders.cols = new Folder("Color adjustments", true);
     sliders.dark = new Slider("Dark", -100, 100, 0, 1, folders.cols.div);
     sliders.mid = new Slider("Mid", -100, 100, 0, 1, folders.cols.div);
     sliders.light = new Slider("Light", -100, 100, 0, 1, folders.cols.div);
+    sliders.hue = new Slider("Hue", -180, 180, 0, 1, folders.cols.div);
+    sliders.sat = new Slider("Saturation", -100, 100, 0, 1, folders.cols.div);
+    sliders.brightness = new Slider("Brightness", -100, 100, 0, 1, folders.cols.div);
 }
 
 function draw() {
@@ -55,6 +58,7 @@ function draw() {
     for (var i = 0; i < TWO_PI; i += increment) {
         var color = hexToRgb(palette[colIndex]);
         color = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, color);
+        color = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, color);
         fill(color.r, color.g, color.b);
 
         x = cos(i) * r;

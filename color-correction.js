@@ -61,7 +61,6 @@ function adjustLevels(dark, mid, light, values) {
     var vals = [values.r, values.g, values.b];
     for (var i = 0; i < vals.length; i++) {
         vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
-        // mid = (dark + light) / 2 + mid;
 
         // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
         // what is between 129 and 255 must be mapped between 179 and 255.
@@ -80,26 +79,6 @@ function adjustLevels(dark, mid, light, values) {
         //We round the value.
         vals[i] = round(vals[i]);
     }
-
-    // vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
-    // // mid = (dark + light) / 2 + mid;
-
-    // // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
-    // // what is between 129 and 255 must be mapped between 179 and 255.
-
-    // // Adjusted for dark and light : 
-    // // what is between dark and originalMid must mapped between dark and (originalMid + mid),
-    // // what is between originalMid and light must be mapped between (originalMid + mid) and light;
-    // if (r >= dark && r <= originalMid) {
-    //     r = map(r, dark, originalMid, dark, originalMid + mid);
-    // } else if (r > originalMid && r <= light) {
-    //     r = map(r, originalMid, light, originalMid + mid, light);
-    // }
-
-    // //Then we constrain the value to proper rgb values.
-    // r = constrain(r, 0, 255);
-    // //We round the value.
-    // r = round(r);
     values = {
         r: vals[0],
         g: vals[1],
@@ -118,8 +97,13 @@ function adjustLevels(dark, mid, light, values) {
 
 //Hue, Saturation, Brightness
 
-function adjustHsb(hue, sat, brightness, values) {
+function adjustHsv(hue, sat, brightness, values) {
+    var hsv = rgbToHsv(values.r, values.g, values.b);
+    hsv.h += hue;
+    hsv.s += sat;
+    hsv.v += brightness;
 
+    return hsvToRgb(hsv.h, hsv.s, hsv.v);
 }
 
 
@@ -228,7 +212,7 @@ function rgbToHsl(r, g, b) {
 //This is taken from :
 // http://stackoverflow.com/questions/8022885/rgb-to-hsv-color-in-javascript
 
-function rgb2hsv() {
+function rgbToHsv(r, g, b) {
     var rr, gg, bb,
         r = arguments[0] / 255,
         g = arguments[1] / 255,
@@ -265,5 +249,79 @@ function rgb2hsv() {
         h: Math.round(h * 360),
         s: Math.round(s * 100),
         v: Math.round(v * 100)
+    };
+}
+
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+    var i;
+    var f, p, q, t;
+
+    // Make sure our arguments stay in-range
+    h = Math.max(0, Math.min(360, h));
+    s = Math.max(0, Math.min(100, s));
+    v = Math.max(0, Math.min(100, v));
+
+    // We accept saturation and value arguments from 0 to 100 because that's
+    // how Photoshop represents those values. Internally, however, the
+    // saturation and value are calculated from a range of 0 to 1. We make
+    // That conversion here.
+    s /= 100;
+    v /= 100;
+
+    if (s == 0) {
+        // Achromatic (grey)
+        r = g = b = v;
+        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+    }
+
+    h /= 60; // sector 0 to 5
+    i = Math.floor(h);
+    f = h - i; // factorial part of h
+    p = v * (1 - s);
+    q = v * (1 - s * f);
+    t = v * (1 - s * (1 - f));
+
+    switch (i) {
+        case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+
+        case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+
+        case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+
+        case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+
+        case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+
+        default: // case 5:
+            r = v;
+            g = p;
+            b = q;
+    }
+
+    return {
+        r: Math.round(r * 255),
+        g: Math.round(g * 255),
+        b: Math.round(b * 255)
     };
 }
