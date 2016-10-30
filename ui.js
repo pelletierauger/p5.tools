@@ -158,7 +158,7 @@ function createInterface(min, max, start) {
     createTimeline(min, max, start);
     interface = createDiv('');
     interface.style('position', 'absolute');
-    interface.style('width', '300px');
+    interface.style('width', '325px');
     interface.style('bottom', '2.5em');
     interface.style('padding', '10px 10px 0px 10px');
     interface.style('opacity', '1');
