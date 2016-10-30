@@ -79,11 +79,9 @@ function adjustLevels(dark, mid, light, values) {
         //We round the value.
         vals[i] = round(vals[i]);
     }
-    values = {
-        r: vals[0],
-        g: vals[1],
-        b: vals[2]
-    };
+    values.r = vals[0];
+    values.g = vals[1];
+    values.b = vals[2];
     return values;
     //For every argument starting at arguments[3], do this...
     // for (var i = 3; i < arguments.length; i++) {
@@ -102,8 +100,11 @@ function adjustHsv(hue, sat, brightness, values) {
     hsv.h += hue;
     hsv.s += sat;
     hsv.v += brightness;
-
-    return hsvToRgb(hsv.h, hsv.s, hsv.v);
+    var newValues = hsvToRgb(hsv.h, hsv.s, hsv.v);
+    values.r = newValues.r;
+    values.g = newValues.g;
+    values.b = newValues.b;
+    return values;
 }
 
 
