@@ -57,10 +57,31 @@ function draw() {
     var colIndex = 0;
     for (var i = 0; i < TWO_PI; i += increment) {
         var color = hexToRgb(palette[colIndex]);
+        color.step = "10";
+        var colorArray = [{
+            offset: 0,
+            r: 205,
+            g: 250,
+            b: 155
+        }, {
+            offset: 0.2,
+            r: 255,
+            g: 120,
+            b: 100
+        }, {
+            offset: 0.8,
+            r: 0,
+            g: 0,
+            b: 180
+        }];
+        // console.log(colorArray);
+        // noLoop();
+        // return;
+        // color = colorArray[2];
         color = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, color);
         color = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, color);
         fill(color.r, color.g, color.b);
-
+        // console.log(color.step)
         x = cos(i) * r;
         y = sin(i) * r;
         ellipse(x, y, 300);

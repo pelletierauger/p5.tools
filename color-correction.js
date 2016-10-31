@@ -56,10 +56,11 @@ console.log("From color-correction.js");
 
 
 function adjustLevels(dark, mid, light, values) {
-    var r, g, b;
-    var originalMid = (dark + light) / 2;
+    var originalMid = 255 / 2;
+    var stretchedMid = map(originalMid, 0, 255, 0 + dark, 255 + light);
     var vals = [values.r, values.g, values.b];
     for (var i = 0; i < vals.length; i++) {
+
         vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
 
         // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
@@ -68,16 +69,22 @@ function adjustLevels(dark, mid, light, values) {
         // Adjusted for dark and light : 
         // what is between dark and originalMid must mapped between dark and (originalMid + mid),
         // what is between originalMid and light must be mapped between (originalMid + mid) and light;
-        if (vals[i] >= dark && vals[i] <= originalMid) {
-            vals[i] = map(vals[i], dark, originalMid, dark, originalMid + mid);
-        } else if (vals[i] > originalMid && vals[i] <= light) {
-            vals[i] = map(vals[i], originalMid, light, originalMid + mid, light);
+        // console.log(vals[i]);
+        if (vals[i] >= 0 + dark && vals[i] <= stretchedMid) {
+            // console.log("Darker! : " + vals[i]);
+            vals[i] = map(vals[i], dark, stretchedMid, dark, stretchedMid + mid);
+            // console.log("Darker after ! : " + vals[i]);
+        } else if (vals[i] > originalMid && vals[i] <= 255 + light) {
+            // console.log("Lighter! : " + vals[i]);
+            vals[i] = map(vals[i], stretchedMid, light, stretchedMid + mid, light);
+            // console.log("Lighter after! : " + vals[i]);
         }
 
         //Then we constrain the value to proper rgb values.
         vals[i] = constrain(vals[i], 0, 255);
         //We round the value.
-        vals[i] = round(vals[i]);
+        vals[i] = Math.round(vals[i]);
+
     }
     values.r = vals[0];
     values.g = vals[1];
