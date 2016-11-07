@@ -1,4 +1,4 @@
-console.log("From color-correction.js");
+// console.log("From color-correction.js");
 //I need to be able to adjust the levels and HSB of a whole palette at the same time, 
 // but also of individual colors.
 
@@ -104,13 +104,17 @@ function adjustLevels(dark, mid, light, values) {
 
 function adjustHsv(hue, sat, brightness, values) {
     var hsv = rgbToHsv(values.r, values.g, values.b);
+
     hsv.h += hue;
     hsv.s += sat;
     hsv.v += brightness;
     var newValues = hsvToRgb(hsv.h, hsv.s, hsv.v);
+    // console.log(newValues);
     values.r = newValues.r;
+    // console.log(values.r);
     values.g = newValues.g;
     values.b = newValues.b;
+    // console.log(values);
     return values;
 }
 
@@ -280,7 +284,11 @@ function hsvToRgb(h, s, v) {
     if (s == 0) {
         // Achromatic (grey)
         r = g = b = v;
-        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        return {
+            r: Math.round(r * 255),
+            g: Math.round(g * 255),
+            b: Math.round(b * 255)
+        };
     }
 
     h /= 60; // sector 0 to 5

@@ -17,7 +17,7 @@ function setup() {
     background(0);
     fill(255);
     noStroke();
-    // noLoop();
+    noLoop();
 }
 
 function configureInterface() {
@@ -60,26 +60,27 @@ function draw() {
         color.step = "10";
         var colorArray = [{
             offset: 0,
-            r: 205,
-            g: 250,
-            b: 155
+            r: 155,
+            g: 150,
+            b: 55
         }, {
-            offset: 0.2,
-            r: 255,
-            g: 120,
-            b: 100
+            offset: 0.15,
+            r: 155,
+            g: 0,
+            b: 0
         }, {
             offset: 0.8,
             r: 0,
             g: 0,
-            b: 180
+            b: 0
         }];
         // console.log(colorArray);
         // noLoop();
         // return;
-        // color = colorArray[2];
+        color = colorArray[2];
         color = adjustLevels(sliders.dark.value, sliders.mid.value, sliders.light.value, color);
         color = adjustHsv(sliders.hue.value, sliders.sat.value, sliders.brightness.value, color);
+        // console.log(color);
         fill(color.r, color.g, color.b);
         // console.log(color.step)
         x = cos(i) * r;
